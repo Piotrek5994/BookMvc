@@ -1,0 +1,49 @@
+﻿@using BookMvc.ViewModels
+@using Core.Enums
+@model BookViewModel
+@{
+    ViewData["Title"] = "Edytuj Książkę";
+}
+
+<h1>Edytuj książkę o numerze @Model.Book.Id</h1>
+<form asp-controller="Book" asp-action="Update" method="post">
+    <input type="hidden" asp-for="Book.Id" />
+    <div class="mb-3">
+        <label asp-for="Book.Title"></label>
+        <input class="form-control" asp-for="Book.Title" />
+        <span class="text-danger" asp-validation-for="Book.Title"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Book.AuthorId"></label>
+        <select class="form-control" asp-for="Book.AuthorId">
+            @foreach (var author in Model.Authors)
+            {
+                <option value="@author.Id">@author.FirstName @author.LastName</option>
+            }
+        </select>
+        <span class="text-danger" asp-validation-for="Book.AuthorId"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Book.PageNumber"></label>
+        <input class="form-control" asp-for="Book.PageNumber" />
+        <span class="text-danger" asp-validation-for="Book.PageNumber"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Book.ReleaseDate"></label>
+        <input class="form-control" asp-for="Book.ReleaseDate" />
+        <span class="text-danger" asp-validation-for="Book.ReleaseDate"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Book.Description"></label>
+        <input class="form-control" asp-for="Book.Description" />
+        <span class="text-danger" asp-validation-for="Book.Description"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Book.Category"></label>
+        <select class="form-control" asp-for="Book.Category" asp-items="@Html.GetEnumSelectList<Category>()"></select>
+        <span class="text-danger" asp-validation-for="Book.Category"></span>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Zapisz</button>
+    </div>
+</form>

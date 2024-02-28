@@ -1,0 +1,68 @@
+﻿@model List<Core.Models.Book>
+@{
+    ViewData["Title"] = "Lista Książek";
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<h1>Lista Książek</h1>
+<a class="btn btn-success" asp-area="" asp-controller="Book" asp-action="Create">Dodaj książkę</a>
+
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Tytuł
+                </th>
+                <th>
+                    Opis
+                </th>
+                <th>
+                    Liczba stron
+                </th>
+                <th>
+                    Kategoria
+                </th>
+                <th>
+                    Akcje
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Title
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.PageNumber
+                    </td>
+                    <td>
+                        @item.Category
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-success" asp-action="Update" asp-route-id="@item.Id">Edycja</a>
+                        <a class="btn btn-outline-info" asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
+                        <form class="d-inline-block" asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć tę książkę?');">
+                            <button type="submit" class="btn btn-outline-danger">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Brak książek do wyświetlenia.</p>
+}

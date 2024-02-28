@@ -1,0 +1,20 @@
+﻿@model Core.Models.Book
+@{
+    ViewData["Title"] = "Szczegóły książki";
+}
+
+<h1>Szczegóły książki @Model.Title:</h1>
+<p>Opis - @Model.Description</p>
+<p>Liczba stron - @Model.PageNumber</p>
+<p>Data wydania - @Model.ReleaseDate.ToShortDateString()</p>
+<p>Kategoria - @Html.DisplayFor(m => m.Category)</p>
+@if (Model.Author != null)
+{
+    <p>Autor - <a asp-controller="Author" asp-action="Details" asp-route-id=@Model.Id> @Model.Author.FirstName </a></p>
+}
+@if (Model.PublishingHouse != null)
+{
+    <p>Wydawnictwo - <a asp-controller="PublishingHouse" asp-action="Details" asp-route-id=@Model.PublishingHouseId> @Model.PublishingHouse.Name </a></p>
+}
+
+<a class="btn btn-outline-success" asp-action="Index">Powrót do listy</a>
